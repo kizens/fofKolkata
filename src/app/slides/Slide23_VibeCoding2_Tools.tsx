@@ -41,7 +41,7 @@ export function Slide23_VibeCoding2_Tools() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/iSn77jvjojA?autoplay=1&mute=1&cc_load_policy=0" 
+                src="https://www.youtube.com/embed/iSn77jvjojA?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=iSn77jvjojA" 
                 title="Claude on Youtube" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -69,7 +69,7 @@ export function Slide23_VibeCoding2_Tools() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/QHNhb_jj4gU?autoplay=1&mute=1&cc_load_policy=0" 
+                src="https://www.youtube.com/embed/QHNhb_jj4gU?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=QHNhb_jj4gU" 
                 title="Figma Make on Youtube" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -98,7 +98,7 @@ export function Slide23_VibeCoding2_Tools() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/SVCBA-pBgt0?autoplay=1&mute=1&cc_load_policy=0" 
+                src="https://www.youtube.com/embed/SVCBA-pBgt0?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=SVCBA-pBgt0" 
                 title="Antigravity on Youtube" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

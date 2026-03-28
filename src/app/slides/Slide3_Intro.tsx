@@ -28,7 +28,7 @@ export function Slide3_Intro() {
       date: "2016",
       description: null,
       img: imgIncture011,
-      video: "https://www.youtube.com/embed/D0Qi3ZHreGo?autoplay=1&mute=1&cc_load_policy=0",
+      video: "https://www.youtube.com/embed/D0Qi3ZHreGo?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=D0Qi3ZHreGo",
       color: "border-purple-500/50 hover:border-purple-500",
       accent: "bg-purple-500"
     },
@@ -38,7 +38,7 @@ export function Slide3_Intro() {
       date: "2017 - 2018",
       description: null,
       img: imgOnnBikesLogo1,
-      video: "https://www.youtube.com/embed/XhtX_RZlsOI?autoplay=1&mute=1&cc_load_policy=0",
+      video: "https://www.youtube.com/embed/XhtX_RZlsOI?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=XhtX_RZlsOI",
       color: "border-pink-500/50 hover:border-pink-500",
       accent: "bg-pink-500"
     },
@@ -48,7 +48,7 @@ export function Slide3_Intro() {
       date: "2018 - 2022",
       description: null,
       img: null,
-      video: "https://www.youtube.com/embed/00FZsgBTDZA?autoplay=1&mute=1&cc_load_policy=0",
+      video: "https://www.youtube.com/embed/00FZsgBTDZA?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=00FZsgBTDZA",
       color: "border-orange-500/50 hover:border-orange-500",
       accent: "bg-orange-500"
     },
@@ -58,7 +58,7 @@ export function Slide3_Intro() {
       date: "2022 - 2025",
       description: null,
       img: null,
-      video: "https://www.youtube.com/embed/wcVC8w6eJcA?autoplay=1&mute=1&cc_load_policy=0",
+      video: "https://www.youtube.com/embed/wcVC8w6eJcA?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=wcVC8w6eJcA",
       color: "border-cyan-500/50 hover:border-cyan-500",
       accent: "bg-cyan-500"
     },
@@ -68,7 +68,7 @@ export function Slide3_Intro() {
       date: "2025 - Present",
       description: null,
       img: imgNewImage2,
-      video: "https://www.youtube.com/embed/Lb4jpHoZTjs?autoplay=1&mute=1&cc_load_policy=0",
+      video: "https://www.youtube.com/embed/Lb4jpHoZTjs?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=Lb4jpHoZTjs",
       color: "border-emerald-500/50 hover:border-emerald-500",
       accent: "bg-emerald-500"
     }

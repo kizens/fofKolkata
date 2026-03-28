@@ -103,7 +103,7 @@ export function Slide17_AIForUX() {
                 {tool.videoId && (
                   <div className="w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-zinc-700/50 relative z-10 mt-2">
                     <iframe
-                      src={`https://www.youtube.com/embed/${tool.videoId}?autoplay=1&mute=1&cc_load_policy=0`}
+                      src={`https://www.youtube.com/embed/${tool.videoId}?autoplay=1&mute=1&cc_load_policy=0&loop=1&playlist=${tool.videoId}`}
                       title={`${tool.name} Demo`}
                       className="absolute inset-0 w-full h-full"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -128,9 +128,7 @@ export function Presentation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  console.log(" slides length:", slides.length, "current index:", currentSlide);
   const CurrentSlideComponent = slides[currentSlide]?.component;
-  console.log(" CurrentSlideComponent:", CurrentSlideComponent);
   if (!CurrentSlideComponent) return null;
 
   return (

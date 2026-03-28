@@ -39,7 +39,7 @@ export function Slide31_NotReplacing() {
             className="flex flex-col items-center gap-4 mb-12"
           >
             <div className="relative p-3 rounded-2xl bg-white shadow-[0_0_40px_rgba(255,255,255,0.1)] group hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] transition-all duration-500">
-              <img src={qrcodeImg} alt="QR Code" className="w-32 h-32 md:w-36 md:h-36 object-contain" />
+              <img src={qrcodeImg} alt="QR Code" className="w-48 h-48 md:w-64 md:h-64 object-contain" />
               
               {/* Neon Scan line overlay effect */}
               <motion.div 

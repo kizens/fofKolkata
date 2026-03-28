@@ -7,5 +7,5 @@ export const router = createBrowserRouter([
     Component: Presentation,
   },
 ], {
-  basename: "/AI-Outsourced"
+  basename: import.meta.env.PROD ? "/AI-Outsourced" : "/"
 });
