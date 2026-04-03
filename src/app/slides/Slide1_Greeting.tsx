@@ -18,6 +18,7 @@ const greetings = [
 
 export function Slide1_Greeting() {
   const [index, setIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,28 +57,95 @@ export function Slide1_Greeting() {
           </AnimatePresence>
         </div>
 
-        {/* Yellow Sticker "UX MEETUP" - Static & Interactive */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, rotate: -3 }}
-          animate={{ opacity: 1, y: 0, rotate: -2 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-          whileHover={{ rotate: 1, scale: 1.05 }}
-          className="mt-8 px-12 py-4 bg-[#FFEB3B] rounded-2xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.8)] relative cursor-pointer z-20"
+        {/* "FoF Kolkata" - Cursors Inspired Layout */}
+        <div 
+          className="mt-8 relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center justify-center cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <h3 className="text-4xl md:text-6xl font-['Bebas_Neue',sans-serif] font-bold tracking-wider text-black uppercase">
-            UX MEETUP
-          </h3>
+          
+          {/* Main Title "FoF Kolkata" */}
+          <h2 className="text-5xl md:text-7xl font-['Bebas_Neue',sans-serif] font-bold tracking-wider text-white uppercase text-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+            FoF Kolkata
+          </h2>
 
-          {/* Pointer Icon */}
+          {/* Labeled Cursors */}
+          
+          {/* Cursor 1: Pink "Auto Layout" */}
           <motion.div
-            initial={{ opacity: 0, x: -20, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="absolute bottom-[-30px] left-[-20px] text-white drop-shadow-lg"
+            className="absolute top-0 left-10 flex items-center gap-1"
+            animate={{ 
+              x: isHovered ? ["-20vw", "30vw", "-10vw", "15vw", 0] : ["-5vw", "5vw", 0], 
+              y: isHovered ? ["-15vh", "20vh", "5vh", "-10vh", 0] : ["-2vh", "2vh", 0] 
+            }}
+            transition={{ duration: isHovered ? 5 : 10, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
           >
-            <MousePointer2 size={42} className="fill-white text-black" />
+            <MousePointer2 size={24} className="fill-[#E91E63] text-black" />
+            <div className="px-3 py-1 bg-[#E91E63] text-white text-sm font-bold rounded-lg shadow-lg">
+              Auto Layout
+            </div>
           </motion.div>
-        </motion.div>
+
+          {/* Cursor 2: Blue "Figma Wizard" */}
+          <motion.div
+            className="absolute top-[-20px] right-20 flex items-center gap-1"
+            animate={{ 
+              x: isHovered ? ["30vw", "-30vw", "10vw", "-15vw", 0] : ["10vw", "-10vw", 0], 
+              y: isHovered ? ["20vh", "-20vh", "-5vh", "10vh", 0] : ["5vh", "-5vh", 0] 
+            }}
+            transition={{ duration: isHovered ? 6 : 12, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.3 }}
+          >
+            <MousePointer2 size={24} className="fill-[#2196F3] text-black" />
+            <div className="px-3 py-1 bg-[#2196F3] text-white text-sm font-bold rounded-lg shadow-lg">
+              Figma Wizard
+            </div>
+          </motion.div>
+
+          {/* Cursor 3: Green "Vibe Coder" */}
+          <motion.div
+            className="absolute bottom-0 left-20 flex items-center gap-1"
+            animate={{ 
+              x: isHovered ? ["-30vw", "15vw", "15vw", "-15vw", 0] : ["-5vw", "5vw", 0], 
+              y: isHovered ? ["15vh", "-15vh", "-15vh", "20vh", 0] : ["-2vh", "2vh", 0] 
+            }}
+            transition={{ duration: isHovered ? 7 : 14, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.6 }}
+          >
+            <MousePointer2 size={24} className="fill-[#4CAF50] text-black" />
+            <div className="px-3 py-1 bg-[#4CAF50] text-white text-sm font-bold rounded-lg shadow-lg">
+              Vibe Coder
+            </div>
+          </motion.div>
+
+          {/* Cursor 4: Orange "City of Joy" */}
+          <motion.div
+            className="absolute bottom-[-20px] right-10 flex items-center gap-1"
+            animate={{ 
+              x: isHovered ? ["15vw", "-25vw", "0vw", "-10vw", 0] : ["5vw", "-5vw", 0], 
+              y: isHovered ? ["-20vh", "15vh", "0vh", "-10vh", 0] : ["-2vh", "2vh", 0] 
+            }}
+            transition={{ duration: isHovered ? 6 : 12, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.9 }}
+          >
+            <MousePointer2 size={24} className="fill-[#FF9800] text-black" />
+            <div className="px-3 py-1 bg-[#FF9800] text-white text-sm font-bold rounded-lg shadow-lg">
+              City of Joy
+            </div>
+          </motion.div>
+
+          {/* Cursor 5: Purple "Pixel Perfect" */}
+          <motion.div
+            className="absolute top-1/2 left-[-40px] flex items-center gap-1"
+            animate={{ 
+              x: isHovered ? ["-15vw", "30vw", "-20vw", "10vw", 0] : ["-5vw", "5vw", 0], 
+              y: isHovered ? ["5vh", "-20vh", "15vh", "-5vh", 0] : ["2vh", "-2vh", 0] 
+            }}
+            transition={{ duration: isHovered ? 8 : 16, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.2 }}
+          >
+            <MousePointer2 size={24} className="fill-[#9C27B0] text-black" />
+            <div className="px-3 py-1 bg-[#9C27B0] text-white text-sm font-bold rounded-lg shadow-lg">
+              Pixel Perfect
+            </div>
+          </motion.div>
+        </div>
 
 
       </div>
