@@ -1,6 +1,99 @@
 import { motion, AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { MousePointer2, Bird } from "lucide-react";
+
+interface FloatingCursorProps {
+  label: string;
+  color: string;
+  className: string;
+  isHovered: boolean;
+  delay?: number;
+}
+
+function FloatingCursor({ label, color, className, isHovered, delay = 0 }: FloatingCursorProps) {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const posRef = useRef({ x: 0, y: 0 });
+  const velRef = useRef({ x: 0, y: 0 });
+  const angleRef = useRef(Math.random() * Math.PI * 2);
+  const stopTicksRef = useRef(0);
+
+  useEffect(() => {
+    let animationFrameId;
+    
+    const timeout = setTimeout(() => {
+      const loop = () => {
+        const rangeX = isHovered ? 800 : 300;
+        const rangeY = isHovered ? 500 : 200;
+        const maxSpeed = isHovered ? 2.5 : 1.2;
+        const wanderForce = 0.2;
+        const returnForce = 0.05;
+
+        if (stopTicksRef.current > 0) {
+          stopTicksRef.current--;
+          animationFrameId = requestAnimationFrame(loop);
+          return;
+        }
+
+        if (Math.random() < 0.005) {
+          stopTicksRef.current = Math.floor(Math.random() * 60 + 30);
+        }
+
+        // Wander
+        angleRef.current += (Math.random() - 0.5) * 0.4;
+        const fx = Math.cos(angleRef.current) * wanderForce;
+        const fy = Math.sin(angleRef.current) * wanderForce;
+
+        velRef.current.x += fx;
+        velRef.current.y += fy;
+
+        // Limit speed
+        const speed = Math.sqrt(velRef.current.x * velRef.current.x + velRef.current.y * velRef.current.y);
+        if (speed > maxSpeed) {
+          velRef.current.x = (velRef.current.x / speed) * maxSpeed;
+          velRef.current.y = (velRef.current.y / speed) * maxSpeed;
+        }
+
+        // Return to center
+        if (Math.abs(posRef.current.x) > rangeX) {
+          velRef.current.x -= Math.sign(posRef.current.x) * returnForce;
+        }
+        if (Math.abs(posRef.current.y) > rangeY) {
+          velRef.current.y -= Math.sign(posRef.current.y) * returnForce;
+        }
+
+        // Update position
+        posRef.current.x += velRef.current.x;
+        posRef.current.y += velRef.current.y;
+
+        setPos({ x: posRef.current.x, y: posRef.current.y });
+
+        animationFrameId = requestAnimationFrame(loop);
+      };
+
+      animationFrameId = requestAnimationFrame(loop);
+    }, delay * 1000);
+
+    return () => {
+      clearTimeout(timeout);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isHovered, delay]);
+
+  return (
+    <motion.div
+      className={className}
+      style={{ x: pos.x, y: pos.y }}
+    >
+      <MousePointer2 size={24} style={{ fill: color, color: "black" }} />
+      <div 
+        className="px-3 py-1 text-white text-sm font-bold rounded-lg shadow-lg"
+        style={{ backgroundColor: color }}
+      >
+        {label}
+      </div>
+    </motion.div>
+  );
+}
 
 const greetings = [
   "नमस्कार",       // Hindi, Marathi, Nepali, Konkani
@@ -59,132 +152,65 @@ export function Slide1_Greeting() {
 
         {/* "FoF Kolkata" - Cursors Inspired Layout */}
         <div 
-          className="mt-8 relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center justify-center cursor-pointer"
+          className="mt-8 relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center justify-center cursor-pointer p-32"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          
-          {/* Main Title "FoF Kolkata" */}
-          <h2 className="text-5xl md:text-7xl font-['Bebas_Neue',sans-serif] font-bold tracking-wider text-white uppercase text-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-            FoF Kolkata
-          </h2>
+          {/* Inner container for positioning cursors relative to text */}
+          <div className="relative flex flex-col items-center justify-center">
+            
+            {/* Main Title "FoF Kolkata" */}
+            <h2 className="text-5xl md:text-7xl font-['Bebas_Neue',sans-serif] font-bold tracking-wider text-white uppercase text-center drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+              FoF Kolkata
+            </h2>
 
-          {/* Labeled Cursors */}
-          
-          {/* Cursor 1: Pink "Auto Layout" */}
-          <motion.div
-            className="absolute top-0 left-10 flex items-center gap-1"
-            variants={{
-              idle: { 
-                x: ["-5vw", "5vw", 0], 
-                y: ["-2vh", "2vh", 0],
-                transition: { duration: 10, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }
-              },
-              hovered: { 
-                x: ["-20vw", "30vw", "-10vw", "15vw", 0], 
-                y: ["-15vh", "20vh", "5vh", "-10vh", 0],
-                transition: { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }
-              }
-            }}
-            animate={isHovered ? "hovered" : "idle"}
-          >
-            <MousePointer2 size={24} className="fill-[#E91E63] text-black" />
-            <div className="px-3 py-1 bg-[#E91E63] text-white text-sm font-bold rounded-lg shadow-lg">
-              Auto Layout
-            </div>
-          </motion.div>
+            {/* Labeled Cursors */}
+            
+            {/* Cursor 1: Pink "Auto Layout" */}
+            <FloatingCursor 
+              label="Auto Layout"
+              color="#E91E63"
+              className="absolute top-0 left-10 flex items-center gap-1"
+              isHovered={isHovered}
+            />
 
-          {/* Cursor 2: Blue "Figma Wizard" */}
-          <motion.div
-            className="absolute top-[-20px] right-20 flex items-center gap-1"
-            variants={{
-              idle: { 
-                x: ["10vw", "-10vw", 0], 
-                y: ["5vh", "-5vh", 0],
-                transition: { duration: 12, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.3 }
-              },
-              hovered: { 
-                x: ["30vw", "-30vw", "10vw", "-15vw", 0], 
-                y: ["20vh", "-20vh", "-5vh", "10vh", 0],
-                transition: { duration: 6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.3 }
-              }
-            }}
-            animate={isHovered ? "hovered" : "idle"}
-          >
-            <MousePointer2 size={24} className="fill-[#2196F3] text-black" />
-            <div className="px-3 py-1 bg-[#2196F3] text-white text-sm font-bold rounded-lg shadow-lg">
-              Figma Wizard
-            </div>
-          </motion.div>
+            {/* Cursor 2: Blue "Figma Wizard" */}
+            <FloatingCursor 
+              label="Figma Wizard"
+              color="#2196F3"
+              className="absolute top-[-20px] right-20 flex items-center gap-1"
+              isHovered={isHovered}
+              delay={0.3}
+            />
 
-          {/* Cursor 3: Green "Vibe Coder" */}
-          <motion.div
-            className="absolute bottom-0 left-20 flex items-center gap-1"
-            variants={{
-              idle: { 
-                x: ["-5vw", "5vw", 0], 
-                y: ["-2vh", "2vh", 0],
-                transition: { duration: 14, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.6 }
-              },
-              hovered: { 
-                x: ["-30vw", "15vw", "15vw", "-15vw", 0], 
-                y: ["15vh", "-15vh", "-15vh", "20vh", 0],
-                transition: { duration: 7, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.6 }
-              }
-            }}
-            animate={isHovered ? "hovered" : "idle"}
-          >
-            <MousePointer2 size={24} className="fill-[#4CAF50] text-black" />
-            <div className="px-3 py-1 bg-[#4CAF50] text-white text-sm font-bold rounded-lg shadow-lg">
-              Vibe Coder
-            </div>
-          </motion.div>
+            {/* Cursor 3: Green "Vibe Coder" */}
+            <FloatingCursor 
+              label="Vibe Coder"
+              color="#4CAF50"
+              className="absolute bottom-0 left-20 flex items-center gap-1"
+              isHovered={isHovered}
+              delay={0.6}
+            />
 
-          {/* Cursor 4: Orange "City of Joy" */}
-          <motion.div
-            className="absolute bottom-[-20px] right-10 flex items-center gap-1"
-            variants={{
-              idle: { 
-                x: ["5vw", "-5vw", 0], 
-                y: ["-2vh", "2vh", 0],
-                transition: { duration: 12, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.9 }
-              },
-              hovered: { 
-                x: ["15vw", "-25vw", "0vw", "-10vw", 0], 
-                y: ["-20vh", "15vh", "0vh", "-10vh", 0],
-                transition: { duration: 6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.9 }
-              }
-            }}
-            animate={isHovered ? "hovered" : "idle"}
-          >
-            <MousePointer2 size={24} className="fill-[#FF9800] text-black" />
-            <div className="px-3 py-1 bg-[#FF9800] text-white text-sm font-bold rounded-lg shadow-lg">
-              City of Joy
-            </div>
-          </motion.div>
+            {/* Cursor 4: Orange "City of Joy" */}
+            <FloatingCursor 
+              label="City of Joy"
+              color="#FF9800"
+              className="absolute bottom-[-20px] right-10 flex items-center gap-1"
+              isHovered={isHovered}
+              delay={0.9}
+            />
 
-          {/* Cursor 5: Purple "Pixel Perfect" */}
-          <motion.div
-            className="absolute top-1/2 left-[-40px] flex items-center gap-1"
-            variants={{
-              idle: { 
-                x: ["-5vw", "5vw", 0], 
-                y: ["2vh", "-2vh", 0],
-                transition: { duration: 16, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.2 }
-              },
-              hovered: { 
-                x: ["-15vw", "30vw", "-20vw", "10vw", 0], 
-                y: ["5vh", "-20vh", "15vh", "-5vh", 0],
-                transition: { duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.2 }
-              }
-            }}
-            animate={isHovered ? "hovered" : "idle"}
-          >
-            <MousePointer2 size={24} className="fill-[#9C27B0] text-black" />
-            <div className="px-3 py-1 bg-[#9C27B0] text-white text-sm font-bold rounded-lg shadow-lg">
-              Pixel Perfect
-            </div>
-          </motion.div>
+            {/* Cursor 5: Purple "Pixel Perfect" */}
+            <FloatingCursor 
+              label="Pixel Perfect"
+              color="#9C27B0"
+              className="absolute top-1/2 left-[-40px] flex items-center gap-1"
+              isHovered={isHovered}
+              delay={1.2}
+            />
+            
+          </div>
         </div>
 
 
